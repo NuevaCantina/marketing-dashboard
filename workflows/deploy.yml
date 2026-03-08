@@ -1,0 +1,23 @@
+name: Deploy to SiteGround
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Deploy via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          server: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USERNAME }}
+          ssh_private_key: ${{ secrets.SFTP_SSH_KEY }}
+          port: ${{ secrets.SFTP_PORT }}
+          local_path: ./index.html
+          remote_path: /marketing.nuevacantina.com/public_html/index.html
