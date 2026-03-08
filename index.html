@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nueva Cantina — Advertising Dashboard</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌮</text></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0A0F14; }
+    #loading { display:flex; align-items:center; justify-content:center; height:100vh; color:#6B7F94; font-family:'Outfit',sans-serif; font-size:14px; letter-spacing:0.1em; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #131A23; }
+    ::-webkit-scrollbar-thumb { background: #2A3A4C; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3A4A5C; }
+  </style>
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@18.2.0",
+      "react/": "https://esm.sh/react@18.2.0/",
+      "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+      "recharts": "https://esm.sh/recharts@2.12.7?external=react,react-dom"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="root"><div id="loading">Loading dashboard…</div></div>
+  <script type="module">
+import React, { useState, useMemo } from "react";
+import { createRoot } from "react-dom/client";
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Cell } from "recharts";
+const h = React.createElement;
+
+const D = {"businessName":"Nueva Cantina","tagline":"Advertising Performance Dashboard","lastUpdated":"March 8, 2026","months":{"2026-03":{"label":"March 2026 (MTD)","complete":false,"mtdDays":8,"samePeriodPrev":{"googleAds":{"clicks":2945,"conversions":1827,"cost":1761.48,"costPerConv":0.96},"facebookAds":{"spend":1701.57,"impressions":245970,"linkClicks":5812,"profileVisits":8072,"costPerResult":0.21,"ctr":2.36},"gbp":{"interactions":6700,"profileViews":130000,"searches":0},"apple":{"searchTaps":7046,"placeCardViews":9263,"tapsForDirections":2679,"tapsToWebsite":1268,"tapsToCall":231,"shareTaps":274},"totalSpend":3463.05,"totalResults":9899},"googleAds":{"totals":{"clicks":2585,"callClicks":0,"conversions":1236,"costPerConv":1.2,"cost":1486.48},"campaigns":[{"name":"Brandon | PMAX | Conversions","cost":647.65,"conversions":479,"costPerConv":1.35},{"name":"Tampa | PMAX | Conversions","cost":347.89,"conversions":384,"costPerConv":0.91},{"name":"St. Pete | PMAX | Conversions","cost":248.57,"conversions":231,"costPerConv":1.08},{"name":"Mexican Food & Margaritas","cost":242.38,"conversions":142,"costPerConv":1.71}]},"facebookAds":{"totals":{"spend":1745.8,"impressions":250822,"linkClicks":5096,"profileVisits":6584,"costPerResult":0.27,"ctr":2.03,"reach":189155},"campaigns":[{"name":"Traffic | Brandon | Traffic IG/FB","spend":334.67,"conversions":1151,"costPerConv":0.29},{"name":"St. Pete | Traffic IG/FB | NOV","spend":300.2,"conversions":1119,"costPerConv":0.27},{"name":"Regular Item Carousel | All Locations","spend":299.68,"conversions":1337,"costPerConv":0.22},{"name":"Q3 Tampa Focus","spend":297.92,"conversions":1276,"costPerConv":0.23},{"name":"Q1 Tampa Focus","spend":297.27,"conversions":990,"costPerConv":0.3},{"name":"Q1 | St. Pete","spend":216.06,"conversions":711,"costPerConv":0.3}]},"gbp":{"interactions":2168,"profileViews":104552,"searches":0,"brandon":{"interactions":680,"profileViews":29021},"stPete":{"interactions":517,"profileViews":23354},"tampa":{"interactions":971,"profileViews":52177}},"apple":{"searchTaps":3277,"placeCardViews":4375,"tapsForDirections":1208,"tapsToWebsite":703,"tapsToCall":77,"shareTaps":156}},"2026-02":{"label":"February 2026","complete":true,"googleAds":{"totals":{"clicks":11875,"callClicks":0,"conversions":8240,"costPerConv":0.74,"cost":6087.72},"campaigns":[{"name":"Brandon | PMAX | Conversions","cost":2739.41,"conversions":3468,"costPerConv":0.79},{"name":"Tampa | PMAX | Conversions","cost":1368.86,"conversions":2319,"costPerConv":0.59},{"name":"St. Pete | PMAX | Conversions","cost":1067.78,"conversions":1594,"costPerConv":0.67},{"name":"Mexican Food & Margaritas","cost":911.66,"conversions":859,"costPerConv":1.06}]},"facebookAds":{"totals":{"spend":5955.49,"impressions":860896,"linkClicks":20344,"profileVisits":28254,"costPerResult":0.21,"ctr":2.36,"reach":491356},"campaigns":[{"name":"UGC - Influencers - ALL Locations","spend":1322.71,"conversions":7919,"costPerConv":0.17},{"name":"Traffic | Brandon | Traffic IG/FB","spend":1257.93,"conversions":5072,"costPerConv":0.25},{"name":"St. Pete | Traffic IG/FB | NOV","spend":1117.89,"conversions":4024,"costPerConv":0.28},{"name":"Q3 Tampa Focus","spend":1115.96,"conversions":5229,"costPerConv":0.21},{"name":"Cupids Holiday Bar Carousel | All Locations","spend":877.87,"conversions":4945,"costPerConv":0.18},{"name":"Regular Item Carousel | All Locations","spend":201.85,"conversions":887,"costPerConv":0.23},{"name":"Q1 Tampa Focus","spend":61.28,"conversions":178,"costPerConv":0.34}]},"gbp":{"interactions":23451,"profileViews":455000,"searches":264775,"brandon":{"interactions":7569,"profileViews":106000,"searches":53521},"stPete":{"interactions":5237,"profileViews":126000,"searches":66254},"tampa":{"interactions":10645,"profileViews":223000,"searches":145000}},"apple":{"searchTaps":24880,"placeCardViews":33828,"tapsForDirections":9858,"tapsToWebsite":4941,"tapsToCall":1088,"shareTaps":1080}},"2026-01":{"label":"January 2026","complete":true,"googleAds":{"totals":{"clicks":8792,"callClicks":0,"conversions":6197,"costPerConv":0.89,"cost":5537.16},"campaigns":[{"name":"Brandon | PMAX | Conversions","cost":2464.46,"conversions":2482,"costPerConv":0.99},{"name":"Tampa | PMAX | Conversions","cost":1126.33,"conversions":1512,"costPerConv":0.74},{"name":"St. Pete | PMAX | Conversions","cost":1033.81,"conversions":1432,"costPerConv":0.72},{"name":"Mexican Food & Margaritas","cost":912.55,"conversions":771,"costPerConv":1.18}]},"facebookAds":{"totals":{"spend":5534.84,"impressions":826166,"linkClicks":18345,"profileVisits":23875,"costPerResult":0.23,"ctr":2.22,"reach":485205},"campaigns":[{"name":"Traffic | Brandon | Traffic IG/FB","spend":1388.27,"conversions":5429,"costPerConv":0.26},{"name":"St. Pete | Traffic IG/FB | NOV","spend":1236.07,"conversions":4358,"costPerConv":0.28},{"name":"Q3 Tampa Focus","spend":1235.94,"conversions":5407,"costPerConv":0.23},{"name":"UGC - Influencers - ALL Locations","spend":433.05,"conversions":3330,"costPerConv":0.13},{"name":"Holiday Bar 25 | Traffic | Brandon","spend":397.72,"conversions":1034,"costPerConv":0.38},{"name":"Cupids Holiday Bar Carousel | All Locations","spend":361.63,"conversions":2508,"costPerConv":0.14}]},"gbp":{"interactions":15901,"profileViews":429000,"searches":248892,"brandon":{"interactions":5524,"profileViews":104000,"searches":50428},"stPete":{"interactions":3981,"profileViews":113000,"searches":59464},"tampa":{"interactions":6396,"profileViews":212000,"searches":139000}},"apple":{"searchTaps":18705,"placeCardViews":24856,"tapsForDirections":6576,"tapsToWebsite":4081,"tapsToCall":448,"shareTaps":811}}}};
+
+const C={bg:"#0A0F14",bgWarm:"#0D1219",card:"#131A23",cardAlt:"#182230",border:"#1E2A38",borderLight:"#2A3A4C",text:"#FFFFFF",textSoft:"#C8D4E0",textMuted:"#6B7F94",blue:"#00BCBD",blueDim:"rgba(0,188,189,0.12)",blueBright:"#1AD4D5",yellow:"#FFB600",yellowDim:"rgba(255,182,0,0.12)",yellowBright:"#FFCA40",blueLight:"#4DD8D9",yellowSoft:"#E6A800",coral:"#FF6B6B",coralDim:"rgba(255,107,107,0.12)",mint:"#4ECDC4",mintDim:"rgba(78,205,196,0.12)",chart1:"#00BCBD",chart2:"#FFB600",chart3:"#4ECDC4",chart4:"#4DD8D9",up:"#00BCBD",upDim:"rgba(0,188,189,0.15)",down:"#FF6B6B",downDim:"rgba(255,107,107,0.12)"};
+
+const fmt=n=>n?.toLocaleString("en-US")??"—";
+const fmtMoney=n=>n!=null?"$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}):"—";
+const fmtPct=n=>n!=null?(n>0?"+":"")+n.toFixed(1)+"%":"—";
+function pctChange(a,b){if(!b||b===0)return null;return((a-b)/b)*100;}
+
+const ts={background:C.card,border:"1px solid "+C.borderLight,borderRadius:10,padding:"10px 14px",fontSize:12,color:C.text,boxShadow:"0 12px 40px rgba(0,0,0,0.5)",fontFamily:"'Outfit',sans-serif"};
+const tk={fill:C.textMuted,fontSize:10,fontFamily:"Outfit"};
+const lg={fontSize:10,color:C.textMuted,fontFamily:"Outfit"};
+const s=(k,v)=>({[k]:v});
+
+function Badge({current:c,previous:p,inverse:inv=false,label:l="MoM"}){const ch=pctChange(c,p);if(ch==null)return h("span",{style:{fontSize:11,color:C.textMuted}},"—");const pos=inv?ch<=0:ch>=0;return h("span",{style:{fontSize:10,fontWeight:700,padding:"3px 10px",borderRadius:20,background:pos?C.upDim:C.downDim,color:pos?C.up:C.down,letterSpacing:"0.04em",textTransform:"uppercase",fontFamily:"'Outfit',sans-serif"}},fmtPct(ch)+" "+l);}
+
+function Card({label:l,value:v,badge:b,accentColor:ac=C.yellow}){return h("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:14,padding:"20px 22px",flex:"1 1 170px",minWidth:155,position:"relative",overflow:"hidden"}},h("div",{style:{position:"absolute",top:0,right:0,width:50,height:50,background:"linear-gradient(135deg,"+ac+"12 0%,transparent 70%)",borderBottomLeftRadius:40}}),h("div",{style:{fontSize:10,color:C.textMuted,marginBottom:8,fontWeight:600,letterSpacing:"0.1em",textTransform:"uppercase",fontFamily:"'Outfit',sans-serif"}},l),h("div",{style:{fontSize:26,fontWeight:700,color:C.text,marginBottom:8,fontFamily:"'Playfair Display',serif"}},v),b);}
+
+function SH({title:t,sub:s}){return h("div",{style:{marginBottom:20,display:"flex",alignItems:"baseline",gap:14}},h("h2",{style:{fontSize:20,fontWeight:700,color:C.text,margin:0,fontFamily:"'Playfair Display',serif",letterSpacing:"-0.01em"}},t),s&&h("span",{style:{fontSize:12,color:C.textMuted,fontFamily:"'Outfit',sans-serif"}},s));}
+
+function Div(){return h("div",{style:{height:1,margin:"36px 0",background:"linear-gradient(90deg,transparent 0%,"+C.border+" 20%,"+C.blue+"40 50%,"+C.border+" 80%,transparent 100%)"}});}
+
+function CT({campaigns:cs,color:cl}){const hd=["Campaign","Cost","Conversions","Cost / Conv."];return h("div",{style:{overflowX:"auto"}},h("table",{style:{width:"100%",borderCollapse:"collapse",fontSize:13,fontFamily:"'Outfit',sans-serif"}},h("thead",null,h("tr",{style:{borderBottom:"1px solid "+C.border}},hd.map((x,i)=>h("th",{key:x,style:{textAlign:i===0?"left":"right",padding:"10px 14px",color:C.textMuted,fontWeight:600,fontSize:10,textTransform:"uppercase",letterSpacing:"0.1em"}},x)))),h("tbody",null,cs.map((c,i)=>h("tr",{key:i,style:{borderBottom:"1px solid "+C.border+"15"}},h("td",{style:{padding:"13px 14px",color:C.text,fontWeight:500,display:"flex",alignItems:"center",gap:10}},h("span",{style:{width:7,height:7,borderRadius:"50%",background:cl,flexShrink:0,opacity:0.85}}),c.name),h("td",{style:{textAlign:"right",padding:"13px 14px",color:C.textSoft}},fmtMoney(c.cost||c.spend)),h("td",{style:{textAlign:"right",padding:"13px 14px",color:C.textSoft}},fmt(c.conversions)),h("td",{style:{textAlign:"right",padding:"13px 14px",fontWeight:600,color:c.costPerConv<=1?C.blue:c.costPerConv<=1.3?C.yellow:C.coral}},fmtMoney(c.costPerConv)))))));}
+
+function TB({active:a,label:l,color:cl,onClick:o}){return h("button",{onClick:o,style:{background:a?cl+"18":"transparent",border:a?"1px solid "+cl+"50":"1px solid "+C.border,borderRadius:10,padding:"9px 20px",color:a?cl:C.textMuted,fontWeight:600,fontSize:12,cursor:"pointer",transition:"all 0.25s ease",fontFamily:"'Outfit',sans-serif",letterSpacing:"0.02em"}},l);}
+
+function App(){
+  const sk=Object.keys(D.months).sort((a,b)=>b.localeCompare(a));
+  const[sm,setSm]=useState(sk[0]);
+  const[pt,setPt]=useState("google");
+  const[dt,setDt]=useState("gbp");
+  const cur=D.months[sm];
+  const pk=sk[sk.indexOf(sm)+1]||null;
+  const pf=pk?D.months[pk]:null;
+  const mtd=cur.complete===false;
+  const sp=mtd&&cur.samePeriodPrev?cur.samePeriodPrev:null;
+  function gp(ch,f){if(mtd&&sp){const c=sp[ch];return c?c[f]:null;}if(pf){const c=pf[ch];if(!c)return null;return c.totals?c.totals[f]:c[f];}return null;}
+  const cl=mtd?"vs Feb 1-"+(cur.mtdDays||"?"):"MoM";
+  const td=useMemo(()=>sk.slice().reverse().map(k=>{const m=D.months[k];const s=m.label.replace(/\s*2026/,"'26").replace(/\s*2025/,"'25").replace(/\s*\(MTD\)/," MTD");return{month:s,gSpend:m.googleAds.totals.cost,fSpend:m.facebookAds.totals.spend,gCPC:m.googleAds.totals.costPerConv,fCPR:m.facebookAds.totals.costPerResult,gbpInt:m.gbp.interactions,gbpV:m.gbp.profileViews,apple:m.apple.placeCardViews};}),[sk]);
+  const tS=cur.googleAds.totals.cost+cur.facebookAds.totals.spend;
+  const gC=cur.googleAds.totals.conversions;
+  const fV=cur.facebookAds.totals.profileVisits;
+  const tR=gC+fV;
+  const aC=tS/(tR||1);
+  const pS=mtd&&sp?sp.totalSpend:(pf?pf.googleAds.totals.cost+pf.facebookAds.totals.spend:null);
+  const pR=mtd&&sp?sp.totalResults:(pf?pf.googleAds.totals.conversions+pf.facebookAds.totals.profileVisits:null);
+  const pC=pS&&pR?pS/pR:null;
+  const cb=[{name:"Google Ads",spend:cur.googleAds.totals.cost,results:gC,cpr:cur.googleAds.totals.costPerConv,color:C.chart1},{name:"Facebook Ads",spend:cur.facebookAds.totals.spend,results:fV,cpr:cur.facebookAds.totals.costPerResult,color:C.chart2}];
+
+  // Ads Summary
+  let summary=null;
+  if(sm===sk[0]){
+    const l=cur,sd=mtd&&sp?sp:null,pm=pf;
+    const gc=l.googleAds.totals.cost,gpc=l.googleAds.totals.costPerConv,gppc=sd?sd.googleAds.costPerConv:(pm?pm.googleAds.totals.costPerConv:null);
+    const fs=l.facebookAds.totals.spend,fcr=l.facebookAds.totals.costPerResult,fpcr=sd?sd.facebookAds.costPerResult:(pm?pm.facebookAds.totals.costPerResult:null);
+    const ad=l.apple.tapsForDirections,apd=sd?sd.apple.tapsForDirections:(pm?pm.apple.tapsForDirections:null);
+    const apc=l.apple.placeCardViews,appc=sd?sd.apple.placeCardViews:(pm?pm.apple.placeCardViews:null);
+    const ac2=l.googleAds.campaigns.filter(c=>c.conversions>0);
+    const bg=ac2.length?ac2.reduce((a,b)=>a.costPerConv<b.costPerConv?a:b):null;
+    const wg=ac2.length?ac2.reduce((a,b)=>a.costPerConv>b.costPerConv?a:b):null;
+    const af=l.facebookAds.campaigns.filter(c=>c.conversions>0);
+    const bf=af.length?af.reduce((a,b)=>a.costPerConv<b.costPerConv?a:b):null;
+    const si=[],ai=[];
+    si.push("Total ad spend "+(mtd?"so far this month":"this month")+" is "+fmtMoney(gc+fs)+" across Google Ads ("+fmtMoney(gc)+") and Facebook Ads ("+fmtMoney(fs)+").");
+    if(gppc)si.push("Google Ads cost per conversion "+(gpc<gppc?"improved":"increased")+" to "+fmtMoney(gpc)+" from "+fmtMoney(gppc)+" in the same period last month.");
+    if(bg&&wg&&bg.name!==wg.name)si.push('Best performing Google campaign: "'+bg.name+'" at '+fmtMoney(bg.costPerConv)+'/conv. Highest cost: "'+wg.name+'" at '+fmtMoney(wg.costPerConv)+"/conv.");
+    if(fpcr)si.push("Facebook cost per profile visit "+(fcr<fpcr?"improved":"increased")+" to "+fmtMoney(fcr)+" from "+fmtMoney(fpcr)+".");
+    if(bf)si.push('Top Facebook campaign: "'+bf.name+'" driving '+fmt(bf.conversions)+" profile visits at "+fmtMoney(bf.costPerConv)+" each.");
+    if(apd&&ad){const p2=Math.abs(pctChange(ad,apd)||0).toFixed(0);si.push("Apple Maps direction taps are "+(ad>apd?"up":"down")+" "+p2+"% vs same period — "+fmt(ad)+" taps driving foot traffic.");}
+    if(wg&&wg.costPerConv>1.5)ai.push('Review "'+wg.name+'" — cost/conv at '+fmtMoney(wg.costPerConv)+" is elevated. Consider adjusting targeting or pausing underperforming ad groups.");
+    if(gpc&&gppc&&gpc>gppc*1.1)ai.push("Google Ads efficiency is trending down. Monitor daily spend pacing and check for audience saturation or increased competition.");
+    if(fcr&&fpcr&&fcr>fpcr*1.1)ai.push("Facebook cost per visit has increased. Consider refreshing ad creative or testing new audience segments to regain efficiency.");
+    if(appc&&apc<appc*0.9)ai.push("Apple Maps visibility is declining. Ensure all 3 location listings are up to date with current hours, photos, and menu links.");
+    if(ai.length===0)ai.push("All channels are performing in line with or better than the same period last month. Continue current strategy and monitor weekly.");
+    ai.push("Continue monitoring all channels weekly. Dashboard data is now complete across all 4 platforms.");
+    summary={si,ai,lb:l.label};
+  }
+
+  return h("div",{style:{background:C.bg,minHeight:"100vh",fontFamily:"'Outfit',-apple-system,sans-serif",color:C.text,padding:0}},
+    h("header",{style:{background:"linear-gradient(180deg,"+C.bgWarm+" 0%,"+C.bg+" 100%)",borderBottom:"1px solid "+C.border,padding:"36px 44px 28px",position:"relative",overflow:"hidden"}},
+      h("div",{style:{position:"absolute",top:-60,left:"30%",width:400,height:200,background:"radial-gradient(ellipse,"+C.blue+"08 0%,transparent 70%)",pointerEvents:"none"}}),
+      h("div",{style:{maxWidth:1240,margin:"0 auto",position:"relative"}},
+        h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-end",flexWrap:"wrap",gap:20}},
+          h("div",null,h("h1",{style:{fontSize:32,fontWeight:800,margin:0,fontFamily:"'Playfair Display',serif",letterSpacing:"-0.02em",color:C.text}},h("span",{style:{color:C.blue}},"Nueva")," Cantina"),h("p",{style:{fontSize:12,color:C.textMuted,margin:"6px 0 0",fontFamily:"'Outfit',sans-serif",letterSpacing:"0.15em",textTransform:"uppercase",fontWeight:500}},D.tagline+" · Updated "+D.lastUpdated)),
+          h("div",{style:{display:"flex",gap:6,alignItems:"center"}},sk.map(k=>{const a=k===sm;const s=D.months[k].label.replace(/\s*2026/,"").replace(/\s*2025/,"");return h("button",{key:k,onClick:()=>setSm(k),style:{background:a?C.yellow:"transparent",color:a?C.bg:C.textMuted,border:a?"none":"1px solid "+C.border,borderRadius:8,padding:"7px 16px",fontWeight:a?700:500,fontSize:12,cursor:"pointer",fontFamily:"'Outfit',sans-serif",transition:"all 0.2s ease",letterSpacing:"0.02em"}},s);}))
+        )
+      )
+    ),
+    h("main",{style:{maxWidth:1240,margin:"0 auto",padding:"0 44px"}},
+      h("div",{style:{marginTop:36}},
+        h(SH,{title:"Overview",sub:mtd?"All paid channels combined · Comparing "+cur.label+" vs same period last month":"All paid channels combined"}),
+        h("div",{style:{display:"flex",gap:14,flexWrap:"wrap"}},
+          h(Card,{label:"Total Ad Spend",value:fmtMoney(tS),badge:h(Badge,{current:tS,previous:pS,label:cl}),accentColor:C.yellow}),
+          h(Card,{label:"Total Results",value:fmt(tR),badge:h(Badge,{current:tR,previous:pR,label:cl}),accentColor:C.blue}),
+          h(Card,{label:"Avg Cost / Result",value:fmtMoney(aC),badge:h(Badge,{current:aC,previous:pC,inverse:true,label:cl}),accentColor:C.blueLight}),
+          h(Card,{label:"Google Ads",value:fmtMoney(cur.googleAds.totals.cost),badge:h(Badge,{current:cur.googleAds.totals.cost,previous:gp("googleAds","cost"),label:cl}),accentColor:C.chart1}),
+          h(Card,{label:"Facebook Ads",value:fmtMoney(cur.facebookAds.totals.spend),badge:h(Badge,{current:cur.facebookAds.totals.spend,previous:gp("facebookAds","spend"),label:cl}),accentColor:C.chart2})
+        )
+      ),
+      h(Div),
+      h(SH,{title:"Monthly Trends",sub:"Spend & efficiency across months"}),
+      h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:18}},
+        h("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:14,padding:24}},h("h3",{style:{fontSize:10,fontWeight:700,color:C.textMuted,margin:"0 0 18px",textTransform:"uppercase",letterSpacing:"0.12em",fontFamily:"'Outfit',sans-serif"}},"Ad Spend by Channel"),h(ResponsiveContainer,{width:"100%",height:210},h(BarChart,{data:td,barGap:6},h(CartesianGrid,{strokeDasharray:"3 3",stroke:C.border}),h(XAxis,{dataKey:"month",tick:tk,axisLine:false,tickLine:false}),h(YAxis,{tick:tk,axisLine:false,tickLine:false,tickFormatter:v=>"$"+(v/1000).toFixed(1)+"k"}),h(Tooltip,{contentStyle:ts,formatter:v=>fmtMoney(v)}),h(Legend,{wrapperStyle:lg}),h(Bar,{dataKey:"gSpend",name:"Google Ads",fill:C.chart1,radius:[5,5,0,0]}),h(Bar,{dataKey:"fSpend",name:"Facebook Ads",fill:C.chart2,radius:[5,5,0,0]})))),
+        h("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:14,padding:24}},h("h3",{style:{fontSize:10,fontWeight:700,color:C.textMuted,margin:"0 0 18px",textTransform:"uppercase",letterSpacing:"0.12em",fontFamily:"'Outfit',sans-serif"}},"Cost / Result Trend"),h(ResponsiveContainer,{width:"100%",height:210},h(LineChart,{data:td},h(CartesianGrid,{strokeDasharray:"3 3",stroke:C.border}),h(XAxis,{dataKey:"month",tick:tk,axisLine:false,tickLine:false}),h(YAxis,{tick:tk,axisLine:false,tickLine:false,tickFormatter:v=>"$"+v.toFixed(2)}),h(Tooltip,{contentStyle:ts,formatter:v=>fmtMoney(v)}),h(Legend,{wrapperStyle:lg}),h(Line,{type:"monotone",dataKey:"gCPC",name:"Google Ads",stroke:C.chart1,strokeWidth:2.5,dot:{r:5,fill:C.chart1,stroke:C.bg,strokeWidth:2}}),h(Line,{type:"monotone",dataKey:"fCPR",name:"Facebook Ads",stroke:C.chart2,strokeWidth:2.5,dot:{r:5,fill:C.chart2,stroke:C.bg,strokeWidth:2}}))))
+      ),
+      h(Div),
+      h(SH,{title:"Channel Comparison",sub:cur.label}),
+      h("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:14,padding:24}},h(ResponsiveContainer,{width:"100%",height:180},h(BarChart,{data:cb,layout:"vertical",barSize:24},h(CartesianGrid,{strokeDasharray:"3 3",stroke:C.border,horizontal:false}),h(XAxis,{type:"number",tick:tk,axisLine:false,tickLine:false,tickFormatter:v=>fmtMoney(v)}),h(YAxis,{type:"category",dataKey:"name",tick:{fill:C.text,fontSize:13,fontWeight:500,fontFamily:"Outfit"},axisLine:false,tickLine:false,width:115}),h(Tooltip,{contentStyle:ts,formatter:v=>fmtMoney(v)}),h(Legend,{wrapperStyle:lg}),h(Bar,{dataKey:"spend",name:"Spend",radius:[0,6,6,0]},cb.map((x,i)=>h(Cell,{key:i,fill:x.color}))),h(Bar,{dataKey:"cpr",name:"Cost/Result",radius:[0,6,6,0]},cb.map((x,i)=>h(Cell,{key:i,fill:x.color+"70"})))))),
+      h(Div),
+      h(SH,{title:"Paid Media",sub:"Google Ads & Facebook Ads"}),
+      h("div",{style:{display:"flex",gap:8,marginBottom:20}},h(TB,{active:pt==="google",label:"Google Ads",color:C.chart1,onClick:()=>setPt("google")}),h(TB,{active:pt==="facebook",label:"Facebook Ads",color:C.chart2,onClick:()=>setPt("facebook")})),
+      pt==="google"&&h("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:14,padding:24}},h("div",{style:{display:"flex",gap:14,flexWrap:"wrap",marginBottom:24}},h(Card,{label:"Clicks",value:fmt(cur.googleAds.totals.clicks),badge:h(Badge,{current:cur.googleAds.totals.clicks,previous:gp("googleAds","clicks"),label:cl}),accentColor:C.chart1}),h(Card,{label:"Conversions",value:fmt(cur.googleAds.totals.conversions),badge:h(Badge,{current:cur.googleAds.totals.conversions,previous:gp("googleAds","conversions"),label:cl}),accentColor:C.blue}),h(Card,{label:"Cost",value:fmtMoney(cur.googleAds.totals.cost),badge:h(Badge,{current:cur.googleAds.totals.cost,previous:gp("googleAds","cost"),label:cl}),accentColor:C.yellow}),h(Card,{label:"Cost / Conv.",value:fmtMoney(cur.googleAds.totals.costPerConv),badge:h(Badge,{current:cur.googleAds.totals.costPerConv,previous:gp("googleAds","costPerConv"),inverse:true,label:cl}),accentColor:C.blueLight})),h(CT,{campaigns:cur.googleAds.campaigns,color:C.chart1})),
+      pt==="facebook"&&h("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:14,padding:24}},h("div",{style:{display:"flex",gap:14,flexWrap:"wrap",marginBottom:24}},h(Card,{label:"Spend",value:fmtMoney(cur.facebookAds.totals.spend),badge:h(Badge,{current:cur.facebookAds.totals.spend,previous:gp("facebookAds","spend"),label:cl}),accentColor:C.chart2}),h(Card,{label:"Profile Visits",value:fmt(cur.facebookAds.totals.profileVisits),badge:h(Badge,{current:cur.facebookAds.totals.profileVisits,previous:gp("facebookAds","profileVisits"),label:cl}),accentColor:C.blue}),h(Card,{label:"Cost / Visit",value:fmtMoney(cur.facebookAds.totals.costPerResult),badge:h(Badge,{current:cur.facebookAds.totals.costPerResult,previous:gp("facebookAds","costPerResult"),inverse:true,label:cl}),accentColor:C.yellow}),h(Card,{label:"Impressions",value:fmt(cur.facebookAds.totals.impressions),badge:h(Badge,{current:cur.facebookAds.totals.impressions,previous:gp("facebookAds","impressions"),label:cl}),accentColor:C.blueLight}),h(Card,{label:"Link Clicks",value:fmt(cur.facebookAds.totals.linkClicks),badge:h(Badge,{current:cur.facebookAds.totals.linkClicks,previous:gp("facebookAds","linkClicks"),label:cl}),accentColor:C.mint}),h(Card,{label:"CTR",value:cur.facebookAds.totals.ctr+"%",badge:h(Badge,{current:cur.facebookAds.totals.ctr,previous:gp("facebookAds","ctr"),label:cl}),accentColor:C.yellow})),h(CT,{campaigns:cur.facebookAds.campaigns,color:C.chart2})),
+      h(Div),
+      h(SH,{title:"Demand Metrics",sub:"Google Business Profile & Apple Maps"}),
+      h("div",{style:{display:"flex",gap:8,marginBottom:20}},h(TB,{active:dt==="gbp",label:"Google Business Profile",color:C.chart3,onClick:()=>setDt("gbp")}),h(TB,{active:dt==="apple",label:"Apple Maps",color:C.chart4,onClick:()=>setDt("apple")})),
+      dt==="gbp"&&h("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:14,padding:24}},
+        h("div",{style:{display:"flex",gap:14,flexWrap:"wrap",marginBottom:24}},h(Card,{label:"Interactions",value:fmt(cur.gbp.interactions),badge:h(Badge,{current:cur.gbp.interactions,previous:gp("gbp","interactions"),label:cl}),accentColor:C.chart3}),h(Card,{label:"Profile Views",value:fmt(cur.gbp.profileViews),badge:h(Badge,{current:cur.gbp.profileViews,previous:gp("gbp","profileViews"),label:cl}),accentColor:C.blue}),cur.gbp.searches>0&&h(Card,{label:"Search Impressions",value:fmt(cur.gbp.searches),badge:h(Badge,{current:cur.gbp.searches,previous:gp("gbp","searches"),label:cl}),accentColor:C.yellow})),
+        h("h4",{style:{fontSize:10,fontWeight:700,color:C.textMuted,margin:"0 0 14px",textTransform:"uppercase",letterSpacing:"0.12em",fontFamily:"'Outfit',sans-serif"}},"By Location"),
+        h("div",{style:{overflowX:"auto"}},h("table",{style:{width:"100%",borderCollapse:"collapse",fontSize:13,fontFamily:"'Outfit',sans-serif"}},h("thead",null,h("tr",{style:{borderBottom:"1px solid "+C.border}},["Location","Interactions","Profile Views",...(cur.gbp.searches>0?["Searches"]:[])].map((x,i)=>h("th",{key:x,style:{textAlign:i===0?"left":"right",padding:"10px 14px",color:C.textMuted,fontWeight:600,fontSize:10,textTransform:"uppercase",letterSpacing:"0.1em"}},x)))),h("tbody",null,[{name:"Tampa (Downtown)",data:cur.gbp.tampa},{name:"Brandon",data:cur.gbp.brandon},{name:"St. Pete",data:cur.gbp.stPete}].map((loc,i)=>h("tr",{key:i,style:{borderBottom:"1px solid "+C.border+"15"}},h("td",{style:{padding:"13px 14px",color:C.text,fontWeight:500}},h("span",{style:{display:"inline-block",width:7,height:7,borderRadius:"50%",background:C.chart3,marginRight:10,opacity:0.85}}),loc.name),h("td",{style:{textAlign:"right",padding:"13px 14px",color:C.textSoft}},fmt(loc.data?.interactions)),h("td",{style:{textAlign:"right",padding:"13px 14px",color:C.textSoft}},fmt(loc.data?.profileViews)),cur.gbp.searches>0&&h("td",{style:{textAlign:"right",padding:"13px 14px",color:C.textSoft}},fmt(loc.data?.searches))))))),
+        h("div",{style:{marginTop:20}},h(ResponsiveContainer,{width:"100%",height:210},h(BarChart,{data:td},h(CartesianGrid,{strokeDasharray:"3 3",stroke:C.border}),h(XAxis,{dataKey:"month",tick:tk,axisLine:false,tickLine:false}),h(YAxis,{tick:tk,axisLine:false,tickLine:false}),h(Tooltip,{contentStyle:ts}),h(Legend,{wrapperStyle:lg}),h(Bar,{dataKey:"gbpInt",name:"Interactions",fill:C.chart3,radius:[5,5,0,0]}))))
+      ),
+      dt==="apple"&&h("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:14,padding:24}},
+        h("div",{style:{display:"flex",gap:14,flexWrap:"wrap",marginBottom:24}},h(Card,{label:"Search Taps",value:fmt(cur.apple.searchTaps),badge:h(Badge,{current:cur.apple.searchTaps,previous:gp("apple","searchTaps"),label:cl}),accentColor:C.chart4}),h(Card,{label:"Place Card Views",value:fmt(cur.apple.placeCardViews),badge:h(Badge,{current:cur.apple.placeCardViews,previous:gp("apple","placeCardViews"),label:cl}),accentColor:C.blue}),h(Card,{label:"Directions Taps",value:fmt(cur.apple.tapsForDirections),badge:h(Badge,{current:cur.apple.tapsForDirections,previous:gp("apple","tapsForDirections"),label:cl}),accentColor:C.yellow}),h(Card,{label:"Website Taps",value:fmt(cur.apple.tapsToWebsite),badge:h(Badge,{current:cur.apple.tapsToWebsite,previous:gp("apple","tapsToWebsite"),label:cl}),accentColor:C.blueLight}),h(Card,{label:"Call Taps",value:fmt(cur.apple.tapsToCall),badge:h(Badge,{current:cur.apple.tapsToCall,previous:gp("apple","tapsToCall"),label:cl}),accentColor:C.mint}),h(Card,{label:"Share Taps",value:fmt(cur.apple.shareTaps),badge:h(Badge,{current:cur.apple.shareTaps,previous:gp("apple","shareTaps"),label:cl}),accentColor:C.yellow})),
+        h(ResponsiveContainer,{width:"100%",height:210},h(LineChart,{data:td},h(CartesianGrid,{strokeDasharray:"3 3",stroke:C.border}),h(XAxis,{dataKey:"month",tick:tk,axisLine:false,tickLine:false}),h(YAxis,{tick:tk,axisLine:false,tickLine:false}),h(Tooltip,{contentStyle:ts}),h(Line,{type:"monotone",dataKey:"apple",name:"Place Card Views",stroke:C.chart4,strokeWidth:2.5,dot:{r:5,fill:C.chart4,stroke:C.bg,strokeWidth:2}})))
+      ),
+      h(Div),
+      summary&&h(React.Fragment,null,
+        h(SH,{title:"Ads Summary",sub:summary.lb}),
+        h("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:14,padding:28,marginBottom:8}},
+          h("div",{style:{marginBottom:28}},
+            h("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:16}},h("span",{style:{display:"inline-flex",alignItems:"center",justifyContent:"center",width:28,height:28,borderRadius:8,background:C.blueDim,color:C.blue,fontSize:14}},"📊"),h("h3",{style:{margin:0,fontSize:14,fontWeight:700,color:C.text,fontFamily:"'Outfit',sans-serif",letterSpacing:"0.04em",textTransform:"uppercase"}},"Performance Summary"),mtd&&h("span",{style:{fontSize:10,fontWeight:600,padding:"3px 10px",borderRadius:20,background:C.blueDim,color:C.blue,fontFamily:"'Outfit',sans-serif"}},(cur.mtdDays||"?")+" days into month")),
+            h("div",{style:{display:"flex",flexDirection:"column",gap:10}},summary.si.map((x,i)=>h("div",{key:i,style:{display:"flex",gap:12,alignItems:"flex-start",fontSize:13,color:C.textSoft,lineHeight:1.6,fontFamily:"'Outfit',sans-serif"}},h("span",{style:{color:C.blue,fontSize:8,marginTop:7,flexShrink:0}},"●"),h("span",null,x))))
+          ),
+          h("div",{style:{height:1,background:C.border,margin:"0 0 28px"}}),
+          h("div",null,
+            h("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:16}},h("span",{style:{display:"inline-flex",alignItems:"center",justifyContent:"center",width:28,height:28,borderRadius:8,background:C.yellowDim,color:C.yellow,fontSize:14}},"⚡"),h("h3",{style:{margin:0,fontSize:14,fontWeight:700,color:C.text,fontFamily:"'Outfit',sans-serif",letterSpacing:"0.04em",textTransform:"uppercase"}},"Action Items")),
+            h("div",{style:{display:"flex",flexDirection:"column",gap:10}},summary.ai.map((x,i)=>h("div",{key:i,style:{display:"flex",gap:12,alignItems:"flex-start",fontSize:13,color:C.textSoft,lineHeight:1.6,fontFamily:"'Outfit',sans-serif"}},h("span",{style:{display:"inline-flex",alignItems:"center",justifyContent:"center",width:20,height:20,borderRadius:6,flexShrink:0,background:C.yellowDim,color:C.yellow,fontSize:10,fontWeight:700,marginTop:2,fontFamily:"'Outfit',sans-serif"}},i+1),h("span",null,x))))
+          )
+        ),
+        h(Div)
+      ),
+      h(SH,{title:"Month-over-Month Summary",sub:"Click any row to view that month"}),
+      h("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:14,padding:24,overflowX:"auto"}},h("table",{style:{width:"100%",borderCollapse:"collapse",fontSize:13,fontFamily:"'Outfit',sans-serif"}},h("thead",null,h("tr",{style:{borderBottom:"1px solid "+C.border}},["Month","Total Spend","Total Results","Avg Cost/Result","GBP Interactions","GBP Views","Apple Place Cards"].map((x,i)=>h("th",{key:x,style:{textAlign:i===0?"left":"right",padding:"10px 14px",color:C.textMuted,fontWeight:600,fontSize:10,textTransform:"uppercase",letterSpacing:"0.1em"}},x)))),h("tbody",null,sk.map(k=>{const m=D.months[k],msp=m.googleAds.totals.cost+m.facebookAds.totals.spend,res=m.googleAds.totals.conversions+m.facebookAds.totals.profileVisits,cpr=msp/(res||1),sel=k===sm;return h("tr",{key:k,onClick:()=>setSm(k),style:{borderBottom:"1px solid "+C.border+"15",cursor:"pointer",background:sel?C.yellowDim:"transparent",transition:"background 0.15s"}},h("td",{style:{padding:"13px 14px",color:C.text,fontWeight:sel?700:500,fontFamily:sel?"'Playfair Display',serif":"'Outfit',sans-serif"}},sel&&h("span",{style:{display:"inline-block",width:6,height:6,borderRadius:"50%",background:C.yellow,marginRight:10}}),m.label),h("td",{style:{textAlign:"right",padding:"13px 14px",color:C.textSoft}},fmtMoney(msp)),h("td",{style:{textAlign:"right",padding:"13px 14px",color:C.textSoft}},fmt(res)),h("td",{style:{textAlign:"right",padding:"13px 14px",color:cpr<=0.5?C.blue:C.yellow,fontWeight:600}},fmtMoney(cpr)),h("td",{style:{textAlign:"right",padding:"13px 14px",color:C.textSoft}},fmt(m.gbp.interactions)),h("td",{style:{textAlign:"right",padding:"13px 14px",color:C.textSoft}},fmt(m.gbp.profileViews)),h("td",{style:{textAlign:"right",padding:"13px 14px",color:C.textSoft}},fmt(m.apple.placeCardViews)));})))),
+      h("div",{style:{marginTop:48,textAlign:"center",padding:"24px 0",borderTop:"1px solid "+C.border}},h("p",{style:{margin:0,fontSize:14,fontFamily:"'Playfair Display',serif",color:C.textSoft}},h("span",{style:{color:C.blue}},"Nueva")," Cantina"),h("p",{style:{margin:"6px 0 0",fontSize:10,color:C.textMuted,fontFamily:"'Outfit',sans-serif",letterSpacing:"0.1em",textTransform:"uppercase"}},"Authentic Flavors · Modern Vibes · Data updated "+D.lastUpdated))
+    )
+  );
+}
+
+createRoot(document.getElementById("root")).render(h(App));
+  </script>
+</body>
+</html>
