@@ -19,6 +19,6 @@ jobs:
           user: ${{ secrets.SFTP_USERNAME }}
           pass: ${{ secrets.SFTP_PASSWORD }}
           port: ${{ secrets.SFTP_PORT }}
-          remoteDir: /marketing.nuevacantina.com/public_html/
+          remoteDir: /home/u2269-2gurjpoqxv8g/marketing.nuevacantina.com/public_html/
           localDir: ./
           options: --verbose
