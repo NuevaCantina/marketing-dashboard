@@ -13,11 +13,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        uses: pressidium/lftp-mirror-action@v1
         with:
-          server: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USERNAME }}
-          ssh_private_key: ${{ secrets.SFTP_SSH_KEY }}
+          host: ${{ secrets.SFTP_HOST }}
+          user: ${{ secrets.SFTP_USERNAME }}
+          pass: ${{ secrets.SFTP_PASSWORD }}
           port: ${{ secrets.SFTP_PORT }}
-          local_path: ./index.html
-          remote_path: /marketing.nuevacantina.com/public_html/index.html
+          remoteDir: /marketing.nuevacantina.com/public_html/
+          localDir: ./
+          options: --verbose
